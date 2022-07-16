@@ -1,28 +1,28 @@
-import { ISeller } from '../../models/models'
+import { IProduct, ISeller } from '../../models/models'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface SellersState {
+interface ProductsState {
   loading: boolean
   error: string
-  sellers: ISeller[]
+  products: IProduct[]
 }
 
-const initialState: SellersState = {
+const initialState: ProductsState = {
   loading: false,
   error: '',
-  sellers: [],
+  products: [],
 }
 
-export const sellersSlice = createSlice({
-  name: 'seller',
+export const productsSlice = createSlice({
+  name: 'product',
   initialState,
   reducers: {
     fetching: state => {
       state.loading = true
     },
-    fetchingSuccess: (state, action: PayloadAction<ISeller[]>) => {
+    fetchingSuccess: (state, action: PayloadAction<IProduct[]>) => {
       state.loading = false
-      state.sellers = action.payload
+      state.products = action.payload
     },
     fetchingError: (state, action: PayloadAction<Error>) => {
       state.loading = false
@@ -31,4 +31,4 @@ export const sellersSlice = createSlice({
   },
 })
 
-export default sellersSlice.reducer
+export default productsSlice.reducer

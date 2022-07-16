@@ -1,28 +1,29 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon, ShoppingCartIcon } from "@heroicons/react/outline";
-import { AppRoute } from "../common/app/app-route.enum";
-import { ReactComponent as Logo } from "../assets/icons/logo.svg";
-import { Typography } from "./Typography";
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { MenuIcon, XIcon, ShoppingCartIcon } from '@heroicons/react/outline'
+import { AppRoute } from '../common/app/app-route.enum'
+import { ReactComponent as Logo } from '../assets/icons/logo.svg'
+import { Typography } from './Typography'
+import { CartLink } from './CartLink'
 
 const user = {
-  name: "Tom Cook",
+  name: 'Tom Cook',
   // email: "tom@example.com",
   imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+}
 const navigation = [
-  { link: "Shop", to: AppRoute.SHOP, current: true },
-  { link: "Sopping Cart", to: AppRoute.CART, current: false },
-  { link: "History", to: AppRoute.HISTORY, current: false },
-  { link: "Coupons", to: AppRoute.COUPONS, current: false },
-];
+  { link: 'Shop', to: AppRoute.SHOP, current: true },
+  { link: 'Sopping Cart', to: AppRoute.CART, current: false },
+  { link: 'History', to: AppRoute.HISTORY, current: false },
+  { link: 'Coupons', to: AppRoute.COUPONS, current: false },
+]
 const userNavigation = [
-  { link: "Your Profile", to: AppRoute.HISTORY },
-  { link: "Sign out", to: AppRoute.SIGN_OUT },
-];
+  { link: 'Your Profile', to: AppRoute.HISTORY },
+  { link: 'Sign out', to: AppRoute.SIGN_OUT },
+]
 
 export const Navigation: React.FC = () => {
   return (
@@ -49,14 +50,14 @@ export const Navigation: React.FC = () => {
                         className={({ isActive }) =>
                           [
                             isActive
-                              ? "text-orange-accent font-bold"
-                              : "text-orange-dark font-medium hover:text-orange-accent",
+                              ? 'text-orange-accent font-bold'
+                              : 'text-orange-dark font-medium hover:text-orange-accent',
                           ]
                             .filter(Boolean)
-                            .join(" ")
+                            .join(' ')
                         }
                       >
-                        <Typography type={"Ag-16-regular"} children={link} />
+                        <Typography type={'Ag-16-regular'} children={link} />
                       </NavLink>
                     ))}
                   </div>
@@ -64,24 +65,14 @@ export const Navigation: React.FC = () => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
-                  <NavLink
-                    className="bg-orange-dark p-1 rounded-full text-orange-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-orange-accent focus:ring-orange-accent focus:text-orange-accent hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-orange-accent hover:ring-orange-accent hover:text-orange-accent"
-                    to={AppRoute.CART}
-                  >
-                    <span className="sr-only">View cart</span>
-                    <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                  </NavLink>
+                  <CartLink type="link" />
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="ml-3 relative">
                     <div>
                       <Menu.Button className="max-w-xs outline bg-orange-dark rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-orange-accent focus:ring-orange-accent hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-orange-accent hover:ring-orange-accent">
                         <span className="sr-only">Open user menu</span>
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={user.imageUrl}
-                          alt=""
-                        />
+                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
                       </Menu.Button>
                     </div>
                     <Transition
@@ -100,19 +91,16 @@ export const Navigation: React.FC = () => {
                             to={to}
                             className={({ isActive }) =>
                               [
-                                "block px-4 py-2 text-sm text-gray-400",
+                                'block px-4 py-2 text-sm text-gray-400',
                                 isActive
-                                  ? "bg-gray-300 text-orange-light font-bold"
-                                  : "text-orange-dark hover:bg-orange-accent hover:text-orange-light",
+                                  ? 'bg-gray-300 text-orange-light font-bold'
+                                  : 'text-orange-dark hover:bg-orange-accent hover:text-orange-light',
                               ]
                                 .filter(Boolean)
-                                .join(" ")
+                                .join(' ')
                             }
                           >
-                            <Typography
-                              type={"Ag-16-regular"}
-                              children={link}
-                            />
+                            <Typography type={'Ag-16-regular'} children={link} />
                           </NavLink>
                         ))}
                       </Menu.Items>
@@ -142,16 +130,16 @@ export const Navigation: React.FC = () => {
                   to={to}
                   className={({ isActive }) =>
                     [
-                      "block px-3 py-2 rounded-md text-base font-medium",
+                      'block px-3 py-2 rounded-md text-base font-medium',
                       isActive
-                        ? "bg-orange-accent text-orange-light font-bold"
-                        : "text-orange-dark hover:bg-orange-accent hover:text-orange-light",
+                        ? 'bg-orange-accent text-orange-light font-bold'
+                        : 'text-orange-dark hover:bg-orange-accent hover:text-orange-light',
                     ]
                       .filter(Boolean)
-                      .join(" ")
+                      .join(' ')
                   }
                 >
-                  <Typography type={"Ag-16-regular"} children={link} />
+                  <Typography type={'Ag-16-regular'} children={link} />
                 </NavLink>
               ))}
             </div>
@@ -169,13 +157,7 @@ export const Navigation: React.FC = () => {
                     {user.name}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="ml-auto bg-gray-300 outline flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <span className="sr-only">View cart</span>
-                  <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                <CartLink type={'button'} />
               </div>
               <div className="mt-3 px-2 space-y-1">
                 {userNavigation.map(({ link, to }) => (
@@ -194,5 +176,5 @@ export const Navigation: React.FC = () => {
         </>
       )}
     </Disclosure>
-  );
-};
+  )
+}

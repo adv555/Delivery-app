@@ -1,34 +1,45 @@
-import React from "react";
+import React from 'react'
 
-import { clsx } from "clsx";
-import { Typography } from "./Typography/Typography";
+import { clsx } from 'clsx'
+import { Typography } from './Typography/Typography'
 
 interface ProductCardProps {
-  name: string;
-  image?: string;
-  className?: string;
-  button?: React.ReactNode;
+  name: string
+  image?: string
+  price?: number
+  className?: string
+  button?: React.ReactNode
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   name,
   image,
-  className,
+  price,
   button,
+  className,
 }) => {
   return (
-    <div className={clsx("flex flex-col shadow-card", className)}>
-      {image && <img src={image} alt={name} className=" block" />}
+    <div className={clsx('flex flex-col shadow-card', className)}>
+      <div className="h-48 w-full border">
+        {image && <img src={image} alt={name} className=" block h-48 w-full object-fill" />}
+      </div>
       <div className="flex flex-col p-2">
-        <div className="mt-2 flex">
+        <div className="mt-1 flex">
           <Typography
-            type={"Ag-18-semibold"}
+            type={'Ag-18-semibold'}
             children={name}
             className=" inline-block text-text-light"
           />
         </div>
-        {button && <div className="flex justify-end  mt-2">{button}</div>}
+        {button && (
+          <div className="flex items-center justify-between  mt-1 mb-1">
+            <div className="text-text-light font-medium">
+              <span className="mr-2">{price?.toFixed(2)}</span>UAH
+            </div>
+            <div>{button}</div>
+          </div>
+        )}
       </div>
     </div>
-  );
-};
+  )
+}
