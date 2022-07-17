@@ -18,7 +18,10 @@ export const CartItem: React.FC<CartItemProps> = ({
   onQuantityChange,
 }) => {
   return (
-    <div className="flex w-full rounded-2xl overflow-hidden shadow-card text-text-dark min-w-fit">
+    <div
+      key={name}
+      className="flex w-full rounded-2xl overflow-hidden shadow-card text-text-dark min-w-fit mb-3"
+    >
       <div className=" w-4/12 h-full border">
         <img className="block h-32 w-full object-fill" src={image} alt={name} />
       </div>
@@ -40,7 +43,7 @@ export const CartItem: React.FC<CartItemProps> = ({
         </div>
       </div>
       <div className="flex w-3/12 items-center justify-center">
-        <p>129.99 UAH</p>
+        <p>{price} UAH</p>
       </div>
       <div className="flex w-1/12 items-center justify-start">
         <button onClick={onRemove} className=" font-bold text-lg ">
