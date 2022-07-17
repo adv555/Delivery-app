@@ -7,41 +7,38 @@ import { PhoneInput } from './PhoneInput'
 import { CartItem } from '../CartItem'
 import { removeFromCart, updateQuantity } from '../../store/slices/cart.slice'
 import { Typography } from '../Typography/Typography'
-
-const data = [
-  {
-    name: 'Product 1',
-    image: 'https://picsum.photos/200',
-    price: 129.99,
-    quantity: 1,
-  },
-  {
-    name: 'Product 2',
-    image: 'https://picsum.photos/200',
-    price: 229.99,
-    quantity: 2,
-  },
-]
-
-interface FormValuesProps {
-  address: string
-  email: string
-  phone: string
-  name: string
-  total: number
-}
+import { FormValuesProps } from './types/form-props.interface'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import {
+  getCartErrorMessage,
+  getCartProducts,
+  getTotalPrice,
+} from '../../store/selectors/cart.selectors'
+import { getAllProducts } from '../../store/selectors/product.selectors'
+import { GoogleMap } from '../Map'
 
 const InitialValues: FormValuesProps = {
   address: '',
   email: '',
   phone: '',
   name: '',
-  total: 0,
 }
 
 export const CheckOutForm: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const products = useAppSelector(getAllProducts)
+  const items = useAppSelector(getCartProducts)
+  const totalPrice = useAppSelector(getTotalPrice)
+  const errorMessage = useAppSelector(getCartErrorMessage)
+
+  function onQuantityChange(e: React.FocusEvent<HTMLInputElement>, id: string) {
+    const quantity = Number(e.target.value) || 0
+    dispatch(updateQuantity({ id, quantity }))
+  }
+
   const onSubmit = (values: FormValuesProps) => {
-    console.log(values)
+    const order = { ...values, items, totalPrice }
+    console.log(order)
   }
 
   return (
@@ -51,7 +48,7 @@ export const CheckOutForm: React.FC = () => {
         address: Yup.string().max(50, 'Must be 50 characters or less').required('Required'),
         email: Yup.string().email('Invalid email address').required('Required'),
         phone: Yup.string().required('Required'),
-        name: Yup.string().max(20, 'Must be 20 characters or less').required('Required'),
+        name: Yup.string().max(50, 'Must be 50 characters or less').required('Required'),
       })}
       onSubmit={onSubmit}
     >
@@ -60,12 +57,10 @@ export const CheckOutForm: React.FC = () => {
         return (
           <Form className="flex flex-col items-center justify-center px-4 py-6  sm:px-0 sm:flex-row sm:items-start gap-6">
             <div className="w-full max-h-screen sm:h-screen sm:w-1/2">
-              <div className=" flex flex-col items-start  h-5/6 px-4 pt-6 border-4 border-dashed border-gray-200 gap-4">
-                <img
-                  className="block h-32 w-full object-fill"
-                  src="https://picsum.photos/500/800"
-                  alt=""
-                />
+              <div className=" flex flex-col items-start  h-5/6 px-4 pt-6 border-4 border-dashed border-gray-200 gap-2">
+                <div className="w-full h-2/6">
+                  <GoogleMap />
+                </div>
                 <TextInputField
                   label="Address"
                   name="address"
@@ -94,17 +89,21 @@ export const CheckOutForm: React.FC = () => {
             <div className="w-full max-h-screen sm:h-screen sm:w-1/2">
               <div className="h-5/6 overflow-scroll px-4 pt-6 border-4 border-dashed border-gray-200 flex flex-col justify-between">
                 <div>
-                  {data.map(item => (
-                    <CartItem
-                      key={item.name}
-                      {...item}
-                      onRemove={() => removeFromCart}
-                      onQuantityChange={() => updateQuantity}
-                    />
+                  {Object.entries(items).map(([id, quantity]) => (
+                    <div key={id}>
+                      <CartItem
+                        name={products[id].name}
+                        quantity={quantity}
+                        price={products[id].price}
+                        image={products[id].image}
+                        onRemove={() => dispatch(removeFromCart(id))}
+                        onQuantityChange={e => onQuantityChange(e, id)}
+                      />
+                    </div>
                   ))}
                 </div>
-                <div className="flex justify-center">
-                  <Typography type={'h4'}>Total: 0.00 UAH</Typography>
+                <div className="flex justify-center text-text">
+                  <Typography type={'h4'}>Total: {totalPrice} UAH</Typography>
                 </div>
 
                 <div className="flex justify-end mb-5">

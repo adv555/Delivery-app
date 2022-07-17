@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 
 import { ReactComponent as Glass } from 'assets/icons/glass.svg'
-import { SearchInputProps } from './types/input-props.interface'
+import { SearchInputProps } from './types/form-props.interface'
 
 export const SearchInput = ({ id, label, size = 'w-[336px]', ...inputProps }: SearchInputProps) => {
   return (

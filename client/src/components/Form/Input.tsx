@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import { overrideTailwindClasses } from 'tailwind-override'
 import { Typography } from '../Typography'
-import { InputProps } from './types/input-props.interface'
+import { InputProps } from './types/form-props.interface'
 
 export const Input: React.FC<InputProps> = ({
   className,

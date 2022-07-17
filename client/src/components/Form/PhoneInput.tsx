@@ -1,6 +1,6 @@
 import PhoneNumberInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
-import { PhoneInputProps } from './types/input-props.interface'
+import { PhoneInputProps } from './types/form-props.interface'
 
 export const PhoneInput = ({
   id,

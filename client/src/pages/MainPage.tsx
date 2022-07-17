@@ -32,7 +32,7 @@ export const MainPage: React.FC = () => {
 
         <div className="w-2/3 h-screen">
           <div className="flex items-start justify-around flex-wrap h-5/6 overflow-scroll px-4 pt-6 border-4 border-dashed border-gray-200 gap-3 ">
-            {products.map(product => (
+            {Object.values(products).map(product => (
               <div key={product._id} className="">
                 <ProductCard
                   name={product.name}

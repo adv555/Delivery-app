@@ -29,3 +29,10 @@ export type SearchInputProps = {
   size?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
+
+export interface FormValuesProps {
+  address: string
+  email: string
+  phone: string
+  name: string
+}
