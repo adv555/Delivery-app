@@ -1,6 +1,5 @@
 import PhoneNumberInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
-import './input.css'
 import { PhoneInputProps } from './types/input-props.interface'
 
 export const PhoneInput = ({
@@ -11,7 +10,7 @@ export const PhoneInput = ({
   ...inputProps
 }: PhoneInputProps) => {
   return (
-    <div className="TextInput">
+    <div className="TextInput w-full">
       <label htmlFor={id}>{label}</label>
 
       <div className="InputContainer">

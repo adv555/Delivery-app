@@ -2,3 +2,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .TextInput .InputContainer {
+    @apply flex flex-wrap;
+  }
+
+  .TextInput input {
+    @apply border rounded-md border-gray-400 h-input p-3 text-Ag-15 font-medium text-text-title opacity-70
+    hover:placeholder:text-text-accent hover:text-text-accent 
+    focus:border focus:border-orange-accent focus:outline-0 focus:text-text-title w-full;
+  }
+
+  .TextInput label {
+    @apply text-text-title text-Ag-13 font-medium;
+  }
+
+  .TextInput svg.Icon {
+    @apply text-gray-400 my-2 -ml-9 z-50;
+  }
+
+  .TextInput .PhoneInputCountry {
+    @apply -mr-16 border-r border-gray-400 h-5 mt-3 pr-2;
+  }
+  .TextInput .PhoneInput {
+    @apply ml-3;
+  }
+  .TextInput .PhoneInput input {
+    @apply pl-16;
+  }
+  .TextInput .PhoneInputCountrySelectArrow {
+    @apply w-2 h-2 mr-1 ml-2;
+  }
+  .TextInput .PhoneInputCountryIconImg {
+    @apply rounded w-5 h-4;
+  }
+  .TextInput .PhoneInputCountryIcon--border {
+    @apply bg-transparent shadow-none;
+  }
+
+  .TextInput .TextInputErrorMsg {
+    @apply text-xs text-red-600;
+  }
+  .TextInput .TextInputError {
+    @apply border-red-600 hover:border-red-600;
+  }
+  .InputWithIcon input {
+    @apply pl-9;
+  }
+}

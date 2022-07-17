@@ -1,6 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
-import './input.css'
+
 import { ReactComponent as Glass } from 'assets/icons/glass.svg'
 import { SearchInputProps } from './types/input-props.interface'
 

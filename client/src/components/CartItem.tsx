@@ -35,7 +35,7 @@ export const CartItem: React.FC<CartItemProps> = ({
             type="number"
             id="quantity"
             name="quantity"
-            min="10"
+            min="1"
             max="100"
             defaultValue={quantity}
             onBlur={e => onQuantityChange(e)}

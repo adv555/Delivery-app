@@ -1,17 +1,17 @@
-import React from "react";
-import clsx from "clsx";
+import React from 'react'
+import clsx from 'clsx'
 
 interface ButtonProps {
-  label: string;
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
-  onClick?: () => void;
-  className?: string;
+  label: string
+  type?: 'button' | 'submit' | 'reset'
+  disabled?: boolean
+  onClick?: () => void
+  className?: string
 }
 
 export const Button: React.FC<ButtonProps> = ({
   label,
-  type = "button",
+  type = 'button',
   onClick,
   disabled,
   className,
@@ -21,9 +21,9 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={clsx("font-bold py-2 px-4 rounded shadow", className)}
+      className={clsx('font-bold py-2 px-4 rounded shadow', className)}
     >
       {label}
     </button>
-  );
-};
+  )
+}

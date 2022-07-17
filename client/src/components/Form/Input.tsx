@@ -2,7 +2,6 @@ import React from 'react'
 import clsx from 'clsx'
 import { overrideTailwindClasses } from 'tailwind-override'
 import { Typography } from '../Typography'
-import './input.css'
 import { InputProps } from './types/input-props.interface'
 
 export const Input: React.FC<InputProps> = ({
@@ -17,9 +16,9 @@ export const Input: React.FC<InputProps> = ({
   ...restHTMLProps
 }) => {
   return (
-    <div className="TextInput">
+    <div className="TextInput w-full">
       {label && (
-        <Typography type="Ag-13-medium" className={clsx('mb-0.5 text-gray')}>
+        <Typography type="Ag-13-medium" className={clsx('mb-0.5 ')}>
           {label}
         </Typography>
       )}
@@ -41,11 +40,7 @@ export const Input: React.FC<InputProps> = ({
         />
       </div>
 
-      {isInvalid && error && (
-        <Typography type="Ag-13-medium" className={'text-red mt-1'}>
-          {error}
-        </Typography>
-      )}
+      {isInvalid && error && <div className="TextInputErrorMsg">{error}</div>}
     </div>
   )
 }
