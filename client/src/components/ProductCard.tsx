@@ -21,7 +21,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className={clsx('flex flex-col shadow-card', className)}>
       <div className="h-48 w-full border">
-        {image && <img src={image} alt={name} className=" block h-48 w-full object-fill" />}
+        {image && <img src={image} alt={name} className=" block h-full w-full object-fill" />}
       </div>
       <div className="flex flex-col p-2">
         <div className="mt-1 flex">

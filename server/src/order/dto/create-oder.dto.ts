@@ -1,11 +1,6 @@
 import mongoose, { ObjectId } from 'mongoose';
 import {
-  IsArray,
-  IsDecimal,
   IsEmail,
-  IsEmpty,
-  IsIn,
-  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsPhoneNumber,
@@ -64,7 +59,7 @@ export class CreateOrderDto {
           description: 'Quantity',
           example: 1,
         },
-        product: {
+        productId: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
           description: 'Product ID',
@@ -78,7 +73,7 @@ export class CreateOrderDto {
     default: [],
   })
   @IsNotEmpty()
-  items: { item: ObjectId; quantity: number }[];
+  items: { productId: ObjectId; quantity: number }[];
 
   @ApiProperty({
     type: Number,

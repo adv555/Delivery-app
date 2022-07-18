@@ -49,6 +49,7 @@ export class Order {
   email: string;
 
   @ApiProperty({
+    isArray: true,
     type: [
       {
         quantity: {
@@ -61,29 +62,30 @@ export class Order {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
           description: 'Product ID',
-          example: '62d02cdbd78210da03d0d52c',
+          example: '62d42ae36319103931ea0ba4',
         },
       },
     ],
     required: true,
     description: 'Products',
+    default: [],
   })
   @Prop({
     type: [
       {
         quantity: { type: Number },
-        product: { type: mongoose.Schema.Types.ObjectId },
+        productId: { type: mongoose.Schema.Types.ObjectId },
       },
     ],
   })
-  products: { product: ObjectId; quantity: number }[];
+  items: { productId: ObjectId; quantity: number }[];
 
   @ApiProperty({
     type: Number,
     description: 'Total',
     example: 199.99,
   })
-  @Prop({ type: Number, required: true })
+  @Prop({ type: Number })
   total: number;
 
   @Prop()

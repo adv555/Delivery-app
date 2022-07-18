@@ -16,6 +16,7 @@ import {
 } from '../../store/selectors/cart.selectors'
 import { getAllProducts } from '../../store/selectors/product.selectors'
 import { GoogleMap } from '../Map'
+import { orderCheckout } from '../../store/actions/cart.actions'
 
 const InitialValues: FormValuesProps = {
   address: '',
@@ -27,9 +28,11 @@ const InitialValues: FormValuesProps = {
 export const CheckOutForm: React.FC = () => {
   const dispatch = useAppDispatch()
   const products = useAppSelector(getAllProducts)
-  const items = useAppSelector(getCartProducts)
+  const cartItems = useAppSelector(getCartProducts)
   const totalPrice = useAppSelector(getTotalPrice)
   const errorMessage = useAppSelector(getCartErrorMessage)
+
+  console.log(cartItems.length)
 
   function onQuantityChange(e: React.FocusEvent<HTMLInputElement>, id: string) {
     const quantity = Number(e.target.value) || 0
@@ -37,8 +40,30 @@ export const CheckOutForm: React.FC = () => {
   }
 
   const onSubmit = (values: FormValuesProps) => {
-    const order = { ...values, items, totalPrice }
+    const total = +totalPrice
+    const items = []
+
+    for (const item of Object.entries(cartItems)) {
+      const [productId, quantity] = item
+      console.log(productId, quantity)
+      const productName = products[productId].name
+      const productPrice = products[productId].price
+      const productImage = products[productId].image
+      const sellerId = products[productId].sellerId
+      items.push({
+        // sellerId,
+        productId,
+        // productName,
+        quantity,
+        // productPrice,
+        // productImage,
+      })
+    }
+    console.log(items)
+
+    const order = { ...values, items, total }
     console.log(order)
+    dispatch(orderCheckout(order))
   }
 
   return (
@@ -88,20 +113,27 @@ export const CheckOutForm: React.FC = () => {
 
             <div className="w-full max-h-screen sm:h-screen sm:w-1/2">
               <div className="h-5/6 overflow-scroll px-4 pt-6 border-4 border-dashed border-gray-200 flex flex-col justify-between">
-                <div>
-                  {Object.entries(items).map(([id, quantity]) => (
-                    <div key={id}>
-                      <CartItem
-                        name={products[id].name}
-                        quantity={quantity}
-                        price={products[id].price}
-                        image={products[id].image}
-                        onRemove={() => dispatch(removeFromCart(id))}
-                        onQuantityChange={e => onQuantityChange(e, id)}
-                      />
-                    </div>
-                  ))}
-                </div>
+                {Object.entries(cartItems).length > 0 ? (
+                  <div>
+                    {Object.entries(cartItems).map(([id, quantity]) => (
+                      <div key={id}>
+                        <CartItem
+                          name={products[id].name}
+                          quantity={quantity}
+                          price={products[id].price}
+                          image={products[id].image}
+                          onRemove={() => dispatch(removeFromCart(id))}
+                          onQuantityChange={e => onQuantityChange(e, id)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="h-1/2 flex items-center justify-center text-gray-300">
+                    <Typography type={'h3'} className="" children={'Your cart is empty'} />
+                  </div>
+                )}
+
                 <div className="flex justify-center text-text">
                   <Typography type={'h4'}>Total: {totalPrice} UAH</Typography>
                 </div>

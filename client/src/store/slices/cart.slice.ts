@@ -35,8 +35,21 @@ export const cartSlice = createSlice({
       const { id, quantity } = action.payload
       state.cartItems[id] = quantity
     },
+    setCheckoutState: (state, action: PayloadAction<CheckoutState>) => {
+      state.checkoutState = action.payload
+    },
+    setErrorMessage: (state, action: PayloadAction<Error>) => {
+      state.errorMessage = action.payload.message
+    },
   },
 })
 
-export const { addToCart, removeFromCart, clearCart, updateQuantity } = cartSlice.actions
+export const {
+  addToCart,
+  removeFromCart,
+  clearCart,
+  updateQuantity,
+  setErrorMessage,
+  setCheckoutState,
+} = cartSlice.actions
 export default cartSlice.reducer
