@@ -33,6 +33,7 @@ export class OrderService {
     const orders = await this.orderModel.find({
       email: { $regex: new RegExp(query, 'i') },
     });
+
     return orders;
   }
   async searchByPhone(query: string): Promise<Order[]> {

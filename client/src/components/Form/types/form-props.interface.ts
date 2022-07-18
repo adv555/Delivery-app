@@ -25,7 +25,7 @@ export type SearchInputProps = {
   label?: string
   placeholder: string
   value?: string
-  onKeyDown?: React.KeyboardEventHandler
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
   size?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void

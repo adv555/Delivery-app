@@ -18,3 +18,12 @@ export interface IProduct {
 }
 
 export interface ICart {}
+
+export interface IOder {
+  _id: string
+  name: string
+  price: number
+  image: string
+  total: number
+  quantity: number
+}
