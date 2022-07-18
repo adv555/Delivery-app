@@ -9,7 +9,7 @@ interface SellerCardProps {
 
 export const SellerCard: React.FC<SellerCardProps> = ({ name, image, onClick }) => {
   return (
-    <div className="flex flex-col shadow-card mb-5 rounded-xl" onClick={onClick}>
+    <div className="flex flex-col shadow-card mb-5 rounded-xl hover:shadow-lg" onClick={onClick}>
       <div className="flex flex-raw p-2 items-center justify-start ">
         <div className=" mr-3">
           {image && (

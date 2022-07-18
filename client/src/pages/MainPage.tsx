@@ -1,16 +1,28 @@
-import React, { useEffect } from 'react'
-import { fetchSellers } from '../store/actions/seller.actions'
+import React, { useEffect, useState } from 'react'
+import { fetchSellerById, fetchSellers } from '../store/actions/seller.actions'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { ProductCard } from '../components/ProductCard'
-import { Button } from '../components/Button'
 import { SellerCard } from '../components/SellerCard'
 import { fetchProducts } from '../store/actions/product.actions'
 import { addToCart } from '../store/slices/cart.slice'
+import { getAllSellers, getProductsState } from '../store/selectors/product.selectors'
+import { getActiveSeller } from '../store/selectors/cart.selectors'
 
 export const MainPage: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { sellers } = useAppSelector(state => state.sellers)
-  const { error, loading, products } = useAppSelector(state => state.products)
+  const { sellers } = useAppSelector(getAllSellers)
+  const { error, loading, products } = useAppSelector(getProductsState)
+  const activeSellerId = useAppSelector(getActiveSeller)
+
+  const checkActiveSeller = (ProductId: string) => {
+    if (!activeSellerId) {
+      return
+    }
+    if (activeSellerId === products[ProductId].sellerId) {
+      return false
+    }
+    return true
+  }
 
   useEffect(() => {
     dispatch(fetchSellers())
@@ -24,7 +36,11 @@ export const MainPage: React.FC = () => {
           <div className="h-5/6 overflow-scroll px-4 pt-6 border-4 border-dashed border-gray-200">
             {sellers.map(seller => (
               <div key={seller._id + seller.name}>
-                <SellerCard name={seller.name} image={seller.image} />
+                <SellerCard
+                  name={seller.name}
+                  image={seller.image}
+                  onClick={() => console.log(seller._id)}
+                />
               </div>
             ))}
           </div>
@@ -38,16 +54,11 @@ export const MainPage: React.FC = () => {
                   name={product.name}
                   image={product.image}
                   price={product.price}
-                  button={
-                    <Button
-                      label="add to cart"
-                      className="bg-orange-dark text-orange-light  hover:bg-orange-accent focus:outline-none focus:shadow-outline"
-                      onClick={() => {
-                        dispatch(addToCart(product._id))
-                      }}
-                    />
-                  }
+                  onClick={() => {
+                    dispatch(addToCart(product._id))
+                  }}
                   className="w-72 h-72 border rounded-lg overflow-hidden"
+                  disabled={checkActiveSeller(product._id)}
                 />
               </div>
             ))}

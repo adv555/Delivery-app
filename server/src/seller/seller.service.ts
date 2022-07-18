@@ -23,7 +23,7 @@ export class SellerService {
   async getOne(id: ObjectId): Promise<Seller> {
     const seller = await (
       await this.sellerModel.findById(id)
-    ).populate(['orders', 'coupons', 'products']);
+    ).populate(['orders', 'products']);
     return seller;
   }
 

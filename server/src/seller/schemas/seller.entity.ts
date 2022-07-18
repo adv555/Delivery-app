@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import mongoose, { Date, Document, ObjectId } from 'mongoose';
-import { Coupon } from 'src/coupon/schemas/coupon.entity';
+// import { Coupon } from 'src/coupon/schemas/coupon.entity';
 import { Order } from 'src/order/schemas/order.entity';
 import { Product } from 'src/product/schemas/product.entity';
 // import { Coupon } from 'src/coupon/schemas/coupon.entity';
@@ -48,12 +48,12 @@ export class Seller {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }] })
   orders: Order[];
 
-  @ApiProperty({
-    description: 'Seller coupons',
-    type: [Coupon],
-  })
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Coupon' }] })
-  coupons: Coupon[];
+  // @ApiProperty({
+  //   description: 'Seller coupons',
+  //   type: [Coupon],
+  // })
+  // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Coupon' }] })
+  // coupons: Coupon[];
 
   @ApiProperty({
     type: Date,

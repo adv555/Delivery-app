@@ -5,12 +5,14 @@ interface SellersState {
   loading: boolean
   error: string
   sellers: ISeller[]
+  activeSellerId: string | null
 }
 
 const initialState: SellersState = {
   loading: false,
   error: '',
   sellers: [],
+  activeSellerId: null,
 }
 
 export const sellersSlice = createSlice({

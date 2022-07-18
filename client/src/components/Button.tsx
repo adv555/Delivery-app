@@ -13,7 +13,7 @@ export const Button: React.FC<ButtonProps> = ({
   label,
   type = 'button',
   onClick,
-  disabled,
+  disabled = false,
   className,
 }) => {
   return (
@@ -21,7 +21,10 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={clsx('font-bold py-2 px-4 rounded shadow', className)}
+      className={clsx(
+        'font-bold py-2 px-4 rounded shadow disabled:bg-slate-300 disabled:text-white',
+        className,
+      )}
     >
       {label}
     </button>
