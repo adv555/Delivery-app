@@ -45,21 +45,16 @@ export const CheckOutForm: React.FC = () => {
 
     for (const item of Object.entries(cartItems)) {
       const [productId, quantity] = item
-      console.log(productId, quantity)
       const productName = products[productId].name
-      const productPrice = products[productId].price
       const productImage = products[productId].image
-      const sellerId = products[productId].sellerId
+
       items.push({
-        // sellerId,
         productId,
-        // productName,
+        productName,
         quantity,
-        // productPrice,
-        // productImage,
+        productImage,
       })
     }
-    console.log(items)
 
     const order = { ...values, items, total }
     console.log(order)
@@ -143,8 +138,7 @@ export const CheckOutForm: React.FC = () => {
                     label={'Submit'}
                     type="submit"
                     className="bg-orange-dark text-orange-light  hover:bg-orange-accent focus:outline-none focus:shadow-outline w-2/5 text-lg"
-
-                    // disabled={!(isValid && dirty)}
+                    disabled={!(isValid && dirty)}
                   />
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateOrderDto } from './dto/create-oder.dto';
 import { OrderService } from './order.service';
 
@@ -12,8 +12,6 @@ export class OrderController {
   @ApiOperation({ summary: 'Create a order' })
   @ApiBody({ type: CreateOrderDto })
   create(@Body() dto: CreateOrderDto) {
-    console.log(dto);
-    // return 'OK';
     return this.orderService.create(dto);
   }
   @Get()
@@ -23,11 +21,25 @@ export class OrderController {
   }
 
   @ApiOperation({ summary: 'Get orders history by email' })
+  @ApiQuery({
+    name: 'query',
+    description: 'Get orders history by email',
+    example: 'example@gmail.com',
+    type: String,
+  })
   @Get('/search/email')
   searchByEmail(@Query('query') query: string) {
     return this.orderService.searchByEmail(query);
   }
-  @ApiOperation({ summary: 'Get orders history by phone' })
+  @ApiOperation({
+    summary: 'Get orders history by phone',
+  })
+  @ApiQuery({
+    name: 'query',
+    description: 'Get orders history by phone',
+    example: '380677777777',
+    type: String,
+  })
   @Get('/search/phone')
   searchByPhone(@Query('query') query: string) {
     return this.orderService.searchByPhone(query);

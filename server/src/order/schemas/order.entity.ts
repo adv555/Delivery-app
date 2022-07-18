@@ -65,6 +65,19 @@ export class Order {
           description: 'Product ID',
           example: '62d423db62e06161bf2fa95e',
         },
+        productName: {
+          type: String,
+          required: true,
+          description: 'Product Name',
+          example: 'Burger',
+        },
+        productImage: {
+          type: String,
+          required: true,
+          description: 'Product Image',
+          example:
+            'https://res.cloudinary.com/behealthy/image/upload/v1657832668/Delivery/pexels-dana-tentis-262959_gh8kae.jpg',
+        },
       },
     ],
     required: true,
@@ -76,6 +89,8 @@ export class Order {
       {
         quantity: { type: Number },
         productId: { type: mongoose.Schema.Types.ObjectId },
+        productName: { type: String },
+        productImage: { type: String },
       },
     ],
   })

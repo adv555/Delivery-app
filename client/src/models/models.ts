@@ -17,13 +17,19 @@ export interface IProduct {
   sellerId: string
 }
 
-export interface ICart {}
+export interface IOrder {
+  _id: string
+  productId: string
+  quantity: number
+  productImage: string
+  productName: string
+}
 
-export interface IOder {
+export interface IHistory {
   _id: string
   name: string
-  price: number
-  image: string
+  address: string
+  phone: string
   total: number
-  quantity: number
+  items: IOrder[]
 }

@@ -1,11 +1,11 @@
-import { IOder } from '../../models/models'
+import { IHistory } from '../../models/models'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { WritableDraft } from 'immer/dist/internal'
 
 interface OrdersState {
   loading: boolean
   error: string
-  orders: { [id: string]: IOder }
+  orders: { [id: string]: IHistory }
 }
 
 const initialState: OrdersState = {
@@ -23,7 +23,7 @@ export const historySlice = createSlice({
     },
     fetchingSuccess: (state, action) => {
       state.loading = false
-      action.payload.forEach((order: WritableDraft<IOder>) => {
+      action.payload.forEach((order: WritableDraft<IHistory>) => {
         state.orders[order._id] = order
       })
     },
@@ -31,7 +31,11 @@ export const historySlice = createSlice({
       state.loading = false
       state.error = action.payload.message
     },
+    resetSearch: state => {
+      state.orders = {}
+    },
   },
 })
 
 export default historySlice.reducer
+export const { resetSearch } = historySlice.actions

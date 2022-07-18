@@ -47,7 +47,7 @@ export class CreateOrderDto {
     required: true,
   })
   @IsNotEmpty()
-  // @IsEmail()
+  @IsEmail()
   email: string;
 
   @ApiProperty({
@@ -66,6 +66,19 @@ export class CreateOrderDto {
           description: 'Product ID',
           example: '62d423db62e06161bf2fa95e',
         },
+        productName: {
+          type: String,
+          required: true,
+          description: 'Product Name',
+          example: 'Burger',
+        },
+        productImage: {
+          type: String,
+          required: true,
+          description: 'Product Image',
+          example:
+            'https://res.cloudinary.com/behealthy/image/upload/v1657832668/Delivery/pexels-dana-tentis-262959_gh8kae.jpg',
+        },
       },
     ],
 
@@ -74,7 +87,12 @@ export class CreateOrderDto {
     default: [],
   })
   @IsNotEmpty()
-  items: { productId: ObjectId; quantity: number }[];
+  items: {
+    productId: ObjectId;
+    quantity: number;
+    productName: string;
+    productImage: string;
+  }[];
 
   @ApiProperty({
     type: Number,

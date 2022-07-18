@@ -1,7 +1,6 @@
 import { AppDispatch } from '..'
 import axios from '../../axios'
 import { historySlice } from '../slices/history.slice'
-import { productsSlice } from '../slices/product.slice'
 
 export const searchOrdersByEmail = (email: string) => {
   return async (dispatch: AppDispatch) => {

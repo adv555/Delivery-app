@@ -30,6 +30,9 @@ export class OrderService {
   }
 
   async searchByEmail(query: string): Promise<Order[]> {
+    if (query.trim() === '') {
+      return [];
+    }
     const orders = await this.orderModel.find({
       email: { $regex: new RegExp(query, 'i') },
     });
@@ -37,6 +40,9 @@ export class OrderService {
     return orders;
   }
   async searchByPhone(query: string): Promise<Order[]> {
+    if (query.trim() === '') {
+      return [];
+    }
     const orders = await this.orderModel.find({
       phone: { $regex: new RegExp(query, 'i') },
     });

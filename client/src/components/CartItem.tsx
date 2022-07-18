@@ -3,10 +3,11 @@ import React from 'react'
 interface CartItemProps {
   name: string
   image: string
-  price: number
+  price?: number
   quantity: number
-  onRemove: () => void
-  onQuantityChange: (e: React.FocusEvent<HTMLInputElement>) => void
+  disabled?: boolean
+  onRemove?: () => void
+  onQuantityChange?: (e: React.FocusEvent<HTMLInputElement>) => void
 }
 
 export const CartItem: React.FC<CartItemProps> = ({
@@ -14,6 +15,7 @@ export const CartItem: React.FC<CartItemProps> = ({
   image,
   price,
   quantity,
+  disabled = false,
   onRemove,
   onQuantityChange,
 }) => {
@@ -36,20 +38,21 @@ export const CartItem: React.FC<CartItemProps> = ({
             max="100"
             defaultValue={quantity}
             onChange={onQuantityChange}
+            disabled={disabled}
           />
         </div>
       </div>
-      <div className="flex w-3/12 items-center justify-center">
-        <p>{price} UAH</p>
-      </div>
+      <div className="flex w-3/12 items-center justify-center">{price && <p>{price} UAH</p>}</div>
       <div className="flex w-1/12 items-center justify-start">
-        <button
-          aria-label={`Remove ${name}  from Shopping Cart`}
-          onClick={onRemove}
-          className=" font-bold text-lg "
-        >
-          X
-        </button>
+        {onRemove && (
+          <button
+            aria-label={`Remove ${name}  from Shopping Cart`}
+            onClick={onRemove}
+            className=" font-bold text-lg "
+          >
+            X
+          </button>
+        )}
       </div>
     </div>
   )
