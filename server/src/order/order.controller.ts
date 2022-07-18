@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateOrderDto } from './dto/create-oder.dto';
 import { OrderService } from './order.service';
@@ -20,5 +20,16 @@ export class OrderController {
   @ApiOperation({ summary: 'Get all orders' })
   getAll() {
     return this.orderService.getAll();
+  }
+
+  @ApiOperation({ summary: 'Get orders history by email' })
+  @Get('/search/email')
+  searchByEmail(@Query('query') query: string) {
+    return this.orderService.searchByEmail(query);
+  }
+  @ApiOperation({ summary: 'Get orders history by phone' })
+  @Get('/search/phone')
+  searchByPhone(@Query('query') query: string) {
+    return this.orderService.searchByPhone(query);
   }
 }

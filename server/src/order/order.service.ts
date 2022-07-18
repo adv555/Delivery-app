@@ -18,7 +18,7 @@ export class OrderService {
     });
     const seller = await this.sellerModel.findById(sellerId);
     console.log(dto);
-    const order = await this.orderModel.create({ ...dto });
+    const order = await this.orderModel.create(dto);
     seller.orders.push(order._id);
     await seller.save();
     return order;
@@ -26,6 +26,19 @@ export class OrderService {
 
   async getAll(): Promise<Order[]> {
     const orders = await this.orderModel.find();
+    return orders;
+  }
+
+  async searchByEmail(query: string): Promise<Order[]> {
+    const orders = await this.orderModel.find({
+      email: { $regex: new RegExp(query, 'i') },
+    });
+    return orders;
+  }
+  async searchByPhone(query: string): Promise<Order[]> {
+    const orders = await this.orderModel.find({
+      phone: { $regex: new RegExp(query, 'i') },
+    });
     return orders;
   }
 }

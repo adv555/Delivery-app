@@ -47,10 +47,11 @@ export class CreateOrderDto {
     required: true,
   })
   @IsNotEmpty()
-  @IsEmail()
+  // @IsEmail()
   email: string;
 
   @ApiProperty({
+    isArray: true,
     type: [
       {
         quantity: {
@@ -63,7 +64,7 @@ export class CreateOrderDto {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
           description: 'Product ID',
-          example: '62d02cdbd78210da03d0d52c',
+          example: '62d423db62e06161bf2fa95e',
         },
       },
     ],

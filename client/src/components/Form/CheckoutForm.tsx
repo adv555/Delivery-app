@@ -81,9 +81,9 @@ export const CheckOutForm: React.FC = () => {
         const { setFieldValue, errors, isValid, dirty } = props
         return (
           <Form className="flex flex-col items-center justify-center px-4 py-6  sm:px-0 sm:flex-row sm:items-start gap-6">
-            <div className="w-full max-h-screen sm:h-screen sm:w-1/2">
+            <div className="w-full sm:h-screen sm:w-1/2">
               <div className=" flex flex-col items-start  h-5/6 px-4 pt-6 border-4 border-dashed border-gray-200 gap-2">
-                <div className="w-full h-2/6">
+                <div className="max-h-32 w-full sm:h-2/6 overflow-hidden ">
                   <GoogleMap />
                 </div>
                 <TextInputField
@@ -111,7 +111,7 @@ export const CheckOutForm: React.FC = () => {
               </div>
             </div>
 
-            <div className="w-full max-h-screen sm:h-screen sm:w-1/2">
+            <div className="w-full  sm:h-screen sm:w-1/2">
               <div className="h-5/6 overflow-scroll px-4 pt-6 border-4 border-dashed border-gray-200 flex flex-col justify-between">
                 {Object.entries(cartItems).length > 0 ? (
                   <div>

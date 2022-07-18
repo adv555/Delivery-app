@@ -46,6 +46,7 @@ export class Order {
     example: 'email@gmail.com',
     required: true,
   })
+  @Prop({ trim: true, required: true })
   email: string;
 
   @ApiProperty({
@@ -62,7 +63,7 @@ export class Order {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
           description: 'Product ID',
-          example: '62d42ae36319103931ea0ba4',
+          example: '62d423db62e06161bf2fa95e',
         },
       },
     ],

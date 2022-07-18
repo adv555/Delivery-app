@@ -28,6 +28,7 @@ export type SearchInputProps = {
   onKeyDown?: React.KeyboardEventHandler
   size?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
 }
 
 export interface FormValuesProps {

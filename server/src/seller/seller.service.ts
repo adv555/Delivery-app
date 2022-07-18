@@ -16,7 +16,7 @@ export class SellerService {
   }
 
   async getAll(): Promise<Seller[]> {
-    const sellers = await this.sellerModel.find();
+    const sellers = await this.sellerModel.find().populate(['products']);
     return sellers;
   }
 

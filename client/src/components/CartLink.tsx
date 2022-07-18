@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { AppRoute } from '../common/app/app-route.enum'
 import { useAppSelector } from '../hooks/redux'
 import { getMemorizedNumItems } from '../store/selectors/cart.selectors'
@@ -10,6 +10,7 @@ interface CartLinkProps {
 }
 
 export const CartLink: React.FC<CartLinkProps> = ({ type }) => {
+  const navigate = useNavigate()
   const numItems = useAppSelector(getMemorizedNumItems)
   return (
     <>
@@ -33,6 +34,7 @@ export const CartLink: React.FC<CartLinkProps> = ({ type }) => {
         <button
           type="button"
           className="ml-auto bg-gray-300 outline flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+          onClick={() => navigate(AppRoute.CART, { replace: true })}
         >
           <span className="sr-only">View cart</span>
           {numItems ? (

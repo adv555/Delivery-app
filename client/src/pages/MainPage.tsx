@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { fetchSellerById, fetchSellers } from '../store/actions/seller.actions'
+import { fetchSellers } from '../store/actions/seller.actions'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { ProductCard } from '../components/ProductCard'
 import { SellerCard } from '../components/SellerCard'
 import { fetchProducts } from '../store/actions/product.actions'
 import { addToCart } from '../store/slices/cart.slice'
-import { getAllSellers, getProductsState } from '../store/selectors/product.selectors'
+import { getAllProducts, getAllSellers } from '../store/selectors/product.selectors'
 import { getActiveSeller } from '../store/selectors/cart.selectors'
 
 export const MainPage: React.FC = () => {
   const dispatch = useAppDispatch()
   const { sellers } = useAppSelector(getAllSellers)
-  const { error, loading, products } = useAppSelector(getProductsState)
+  const products = useAppSelector(getAllProducts)
   const activeSellerId = useAppSelector(getActiveSeller)
 
   const checkActiveSeller = (ProductId: string) => {
@@ -28,6 +28,21 @@ export const MainPage: React.FC = () => {
     dispatch(fetchSellers())
     dispatch(fetchProducts())
   }, [dispatch])
+
+  // const onSellerCardClick = (sellerId: string) => {
+  //   console.log(sellerId)
+  //   setSellerId(sellerId)
+  //   const seller = sellers?.find(seller => seller._id === sellerId)
+  //   const sellerProductsArr = seller?.products
+
+  //   const sellerProducts = sellerProductsArr?.reduce(
+  //     (acc, item, idx) => Object.assign(acc, { [idx]: item }),
+  //     {},
+  //   )
+  //   console.log(sellerProducts)
+
+  //   setProducts(sellerProducts)
+  // }
 
   return (
     <>
