@@ -36,4 +36,5 @@ export interface FormValuesProps {
   email: string
   phone: string
   name: string
+  recaptcha: string
 }

@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '..'
 
 type CheckoutState = 'LOADING' | 'READY' | 'ERROR'
 export type CartItems = { [productID: string]: number }
@@ -37,6 +36,7 @@ export const cartSlice = createSlice({
     },
     setCheckoutState: (state, action: PayloadAction<CheckoutState>) => {
       state.checkoutState = action.payload
+      state.errorMessage = ''
     },
     setErrorMessage: (state, action: PayloadAction<Error>) => {
       state.errorMessage = action.payload.message

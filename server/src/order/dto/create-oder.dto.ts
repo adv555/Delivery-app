@@ -104,4 +104,6 @@ export class CreateOrderDto {
   @IsNumber()
   @Min(0)
   total: number;
+
+  recaptcha: string;
 }

@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Formik, Form, FormikProps } from 'formik'
 import * as Yup from 'yup'
+import ReCAPTCHA from 'react-google-recaptcha'
 import TextInputField from './TextInputField'
 import { Button } from '../Button'
 import { PhoneInput } from './PhoneInput'
@@ -18,11 +19,14 @@ import { getAllProducts } from '../../store/selectors/product.selectors'
 import { GoogleMap } from '../Map'
 import { orderCheckout } from '../../store/actions/cart.actions'
 
+const googleSiteKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY
+
 const InitialValues: FormValuesProps = {
   address: '',
   email: '',
   phone: '',
   name: '',
+  recaptcha: '',
 }
 
 export const CheckOutForm: React.FC = () => {
@@ -31,8 +35,7 @@ export const CheckOutForm: React.FC = () => {
   const cartItems = useAppSelector(getCartProducts)
   const totalPrice = useAppSelector(getTotalPrice)
   const errorMessage = useAppSelector(getCartErrorMessage)
-
-  console.log(cartItems.length)
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
 
   function onQuantityChange(e: React.FocusEvent<HTMLInputElement>, id: string) {
     const quantity = Number(e.target.value) || 0
@@ -56,8 +59,12 @@ export const CheckOutForm: React.FC = () => {
       })
     }
 
+    if (items.length === 0) {
+      alert('Cart is empty')
+      return
+    }
+
     const order = { ...values, items, total }
-    console.log(order)
     dispatch(orderCheckout(order))
   }
 
@@ -69,6 +76,7 @@ export const CheckOutForm: React.FC = () => {
         email: Yup.string().email('Invalid email address').required('Required'),
         phone: Yup.string().required('Required'),
         name: Yup.string().max(50, 'Must be 50 characters or less').required('Required'),
+        recaptcha: Yup.string().required(),
       })}
       onSubmit={onSubmit}
     >
@@ -85,14 +93,14 @@ export const CheckOutForm: React.FC = () => {
                   label="Address"
                   name="address"
                   type="text"
-                  placeholder="e.g. Odessa"
+                  placeholder="e.g. Derybasivska St, 12, Odessa"
                 />
 
                 <TextInputField
                   label="Email"
                   name="email"
                   type="email"
-                  placeholder="e.g. jane@formik.com"
+                  placeholder="e.g. example@formik.com"
                 />
 
                 <PhoneInput
@@ -102,7 +110,7 @@ export const CheckOutForm: React.FC = () => {
                   error={errors.phone}
                 />
 
-                <TextInputField label="Name" name="name" type="text" placeholder="e.g. Jane" />
+                <TextInputField label="Name" name="name" type="text" placeholder="e.g. Jane Doe" />
               </div>
             </div>
 
@@ -125,12 +133,31 @@ export const CheckOutForm: React.FC = () => {
                   </div>
                 ) : (
                   <div className="h-1/2 flex items-center justify-center text-gray-300">
-                    <Typography type={'h3'} className="" children={'Your cart is empty'} />
+                    (
+                    <Typography type={'h3'} children={'Cart is empty'} />)
                   </div>
                 )}
 
                 <div className="flex justify-center text-text">
                   <Typography type={'h4'}>Total: {totalPrice} UAH</Typography>
+                </div>
+                {errorMessage && (
+                  <div className="flex justify-center text-red-400">
+                    <Typography type={'Ag-16-regular'}>{errorMessage}</Typography>
+                  </div>
+                )}
+                <div className="flex justify-end mb-5">
+                  {googleSiteKey && (
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      size="normal"
+                      sitekey={googleSiteKey}
+                      onChange={value => {
+                        console.log('captcha changed', value)
+                        setFieldValue('recaptcha', value)
+                      }}
+                    />
+                  )}
                 </div>
 
                 <div className="flex justify-end mb-5">

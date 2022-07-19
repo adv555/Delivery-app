@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { GoogleRecaptchaValidator } from '@nestlab/google-recaptcha/services/google-recaptcha.validator';
 import { Model } from 'mongoose';
 import { Seller, SellerDocument } from 'src/seller/schemas/seller.entity';
 import { CreateOrderDto } from './dto/create-oder.dto';
@@ -10,8 +11,26 @@ export class OrderService {
   constructor(
     @InjectModel(Order.name) readonly orderModel: Model<OrderDocument>,
     @InjectModel(Seller.name) readonly sellerModel: Model<SellerDocument>,
+    private readonly recaptchaValidator: GoogleRecaptchaValidator,
   ) {}
+
   async create(dto: CreateOrderDto): Promise<Order> {
+    if (!dto) {
+      throw new BadRequestException('Something went wrong');
+    }
+    const { recaptcha } = dto;
+    console.log(recaptcha);
+    const isValid = await this.recaptchaValidator.validate({
+      response: recaptcha,
+      score: 0.8,
+      action: 'order',
+    });
+
+    console.log(isValid.success);
+    if (!isValid.success) {
+      throw new BadRequestException('The captcha is not valid');
+    }
+
     const productId = dto.items[0].productId;
     const sellerId = await this.sellerModel.findOne({
       products: { $in: [productId] },
