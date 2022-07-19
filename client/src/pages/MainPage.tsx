@@ -29,20 +29,6 @@ export const MainPage: React.FC = () => {
     dispatch(fetchProducts())
   }, [dispatch])
 
-  // const onSellerCardClick = (sellerId: string) => {
-  //   console.log(sellerId)
-  //   setSellerId(sellerId)
-  //   const seller = sellers?.find(seller => seller._id === sellerId)
-  //   const sellerProductsArr = seller?.products
-
-  //   const sellerProducts = sellerProductsArr?.reduce(
-  //     (acc, item, idx) => Object.assign(acc, { [idx]: item }),
-  //     {},
-  //   )
-  //   console.log(sellerProducts)
-
-  //   setProducts(sellerProducts)
-  // }
 
   return (
     <>
