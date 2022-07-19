@@ -19,3 +19,5 @@ Delivery App
 
 Open **`http://<backend_host>:<backend_port>/api/docs`** in your browser to view the documentation
 (for example http://localhost:3001/swagger).
+
+**On remote server** - https://mysterious-gorge-41048.herokuapp.com/swagger
