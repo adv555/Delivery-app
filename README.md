@@ -2,6 +2,8 @@
 
 Delivery App
 
+https://food-delivery-adv.herokuapp.com/
+
 ### What's shipped with this boilerplate?
 
 - React (CRA) + NestJS applications
