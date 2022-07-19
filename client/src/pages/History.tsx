@@ -10,17 +10,14 @@ import { resetSearch } from '../store/slices/history.slice'
 export const History: React.FC = () => {
   const dispatch = useAppDispatch()
   const history = useAppSelector(getOrdersHistory)
-  console.log(Object.values(history).map(items => console.log(items.items)))
 
   const onEmailSearch = (email: string) => {
     dispatch(resetSearch())
-    console.log(email)
     dispatch(searchOrdersByEmail(email))
   }
 
   const onPhoneSearch = (phone: string) => {
     dispatch(resetSearch())
-    console.log(phone)
     dispatch(searchOrdersByPhone(phone))
   }
 
@@ -84,15 +81,3 @@ export const History: React.FC = () => {
     </div>
   )
 }
-
-// order.items.map(item => (
-//                 <div key={item.productId} className="flex flex-row basis-1/2">
-//                   <CartItem
-//                     name={item.productName}
-//                     image={item.productImage}
-//                     // price={order.total}
-//                     quantity={item.quantity}
-//                     disabled={true}
-//                   />
-//                 </div>
-//               )),
